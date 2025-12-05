@@ -5,6 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tietosuojakäytäntö - Kryptot (Crypto Tracker)</title>
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
             line-height: 1.6;
@@ -53,11 +58,53 @@
             border-radius: 5px;
             margin-top: 20px;
         }
+        .language-switcher {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+        }
+        .language-switcher select {
+            padding: 8px 12px;
+            border: 2px solid #3498db;
+            border-radius: 5px;
+            background-color: white;
+            color: #2c3e50;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .language-switcher select:hover {
+            background-color: #3498db;
+            color: white;
+        }
+        .language-switcher select:focus {
+            outline: none;
+            box-shadow: 0 0 5px rgba(52, 152, 219, 0.5);
+        }
+        @media (max-width: 600px) {
+            .language-switcher {
+                position: static;
+                text-align: center;
+                margin-bottom: 20px;
+            }
+        }
     </style>
 </head>
 <body>
+    <div class="language-switcher">
+        <select id="languageSelect" onchange="changeLanguage(this.value)">
+            <option value="fi">🇫🇮 Suomi</option>
+            <option value="en">🇬🇧 English</option>
+            <option value="sv">🇸🇪 Svenska</option>
+            <option value="de">🇩🇪 Deutsch</option>
+            <option value="es">🇪🇸 Español</option>
+            <option value="fr">🇫🇷 Français</option>
+        </select>
+    </div>
+    
     <div class="container">
-        <h1>Tietosuojakäytäntö (Privacy Policy)</h1>
+        <h1 id="title">Tietosuojakäytäntö (Privacy Policy)</h1>
         
         <p class="updated"><strong>Viimeksi päivitetty: 5.12.2025</strong></p>
         
@@ -97,9 +144,190 @@
         <h2>6. Ota yhteyttä</h2>
         
         <div class="contact">
-            <p>Jos sinulla on kysymyksiä tai huolenaiheita tästä tietosuojakäytännöstä, otathan rohkeasti yhteyttä sähköpostitse:<br>
+            <p id="contact-text">Jos sinulla on kysymyksiä tai huolenaiheita tästä tietosuojakäytännöstä, otathan rohkeasti yhteyttä sähköpostitse:<br>
             <strong>sovelluksenkehittaja@gmail.com</strong></p>
         </div>
     </div>
+    
+    <script>
+        const translations = {
+            fi: {
+                title: "Tietosuojakäytäntö (Privacy Policy)",
+                updated: "Viimeksi päivitetty: 5.12.2025",
+                intro: "Tämä tietosuojakäytäntö koskee \"Kryptot\" (Crypto Tracker) -sovellusta.",
+                h1: "1. Tietojen kerääminen ja yksityisyys",
+                p1: "<strong>Emme kerää henkilötietoja.</strong> Sovellus on suunniteltu toimimaan täysin ilman käyttäjän tunnistamista. Emme kerää, tallenna tai jaa mitään henkilökohtaisia tietojasi (kuten nimi, sähköpostiosoite, puhelinnumero tai sijaintitiedot). Sovelluksen käyttö ei vaadi rekisteröitymistä tai käyttäjätilin luomista.",
+                h2: "2. Sovelluksen tekninen toiminta",
+                p2: "Sovellus toimii itsenäisesti käyttäjän laitteella hyödyntäen seuraavia periaatteita:",
+                li1: "<strong>Reaaliaikaiset tiedot:</strong> Sovellus käyttää internet-yhteyttä hakeakseen ajantasaiset kryptovaluuttojen kurssitiedot ja kaaviot ulkoisesta tietokannasta (Firebase) sekä julkisista rajapinnoista. Tämä on puhtaasti tiedon hakemista, eikä prosessissa lähetetä käyttäjätietoja ulospäin.",
+                li2: "<strong>Paikallinen tallennus:</strong> Kaikki käyttäjän tekemät asetukset – kuten suosikkilistat, asetetut hintahälytykset ja sovelluksen asetukset – tallennetaan ainoastaan paikallisesti käyttäjän puhelimen muistiin. Nämä tiedot pysyvät vain sinun laitteellasi.",
+                li3: "<strong>Maksuliikenne:</strong> Sovelluksen Premium-version osto tapahtuu suoraan Google Play -kaupan kautta. Google käsittelee maksutapahtuman turvallisesti. Sovellus saa Googlelta ainoastaan teknisen vahvistuksen (\"kyllä/ei\") siitä, onko lisenssi voimassa, jotta Premium-ominaisuudet voidaan avata. Emme koskaan näe tai käsittele luottokorttitietojasi.",
+                h3: "3. Sovelluksen luvat",
+                p3: "Sovellus pyytää vain välttämättömät luvat toimiakseen:",
+                li4: "<strong>INTERNET:</strong> Välttämätön kurssitietojen lataamiseksi.",
+                li5: "<strong>FOREGROUND_SERVICE & POST_NOTIFICATIONS:</strong> Tarvitaan hintahälytysten toimintaan. Kun asetat hälytyksen, sovellus seuraa hintaa taustalla ja lähettää ilmoituksen, kun raja ylittyy. Tämä prosessi tapahtuu paikallisesti laitteessasi.",
+                h4: "4. Tietoturva",
+                p4: "Koska emme kerää henkilötietoja emmekä siirrä niitä omille palvelimillemme, tietosi ovat turvassa omalla laitteellasi. Luotamme Google Playn infrastruktuuriin sovelluksen jakelussa ja maksujen käsittelyssä.",
+                h5: "5. Muutokset tähän tietosuojakäytäntöön",
+                p5: "Saatamme päivittää tietosuojakäytäntöämme ajoittain sovelluksen kehittyessä. Suosittelemme käymään tällä sivulla säännöllisesti pysyäksesi ajan tasalla mahdollisista muutoksista.",
+                h6: "6. Ota yhteyttä",
+                contact: "Jos sinulla on kysymyksiä tai huolenaiheita tästä tietosuojakäytännöstä, otathan rohkeasti yhteyttä sähköpostitse:<br><strong>sovelluksenkehittaja@gmail.com</strong>"
+            },
+            en: {
+                title: "Privacy Policy",
+                updated: "Last updated: December 5, 2025",
+                intro: "This privacy policy applies to the \"Kryptot\" (Crypto Tracker) application.",
+                h1: "1. Data Collection and Privacy",
+                p1: "<strong>We do not collect personal data.</strong> The app is designed to work completely without user identification. We do not collect, store, or share any of your personal information (such as name, email address, phone number, or location data). Using the app does not require registration or creating a user account.",
+                h2: "2. Technical Operation of the App",
+                p2: "The app operates independently on the user's device using the following principles:",
+                li1: "<strong>Real-time data:</strong> The app uses an internet connection to fetch up-to-date cryptocurrency price data and charts from an external database (Firebase) and public APIs. This is purely data retrieval, and no user data is sent out in the process.",
+                li2: "<strong>Local storage:</strong> All user-made settings – such as favorites lists, set price alerts, and app settings – are stored only locally in the user's phone memory. This data stays only on your device.",
+                li3: "<strong>Payment processing:</strong> Purchasing the Premium version happens directly through the Google Play Store. Google handles the payment transaction securely. The app only receives technical confirmation (\"yes/no\") from Google about whether the license is active, so that Premium features can be unlocked. We never see or handle your credit card information.",
+                h3: "3. App Permissions",
+                p3: "The app requests only the necessary permissions to function:",
+                li4: "<strong>INTERNET:</strong> Essential for loading price data.",
+                li5: "<strong>FOREGROUND_SERVICE & POST_NOTIFICATIONS:</strong> Required for price alert functionality. When you set an alert, the app monitors the price in the background and sends a notification when the threshold is reached. This process happens locally on your device.",
+                h4: "4. Security",
+                p4: "Since we do not collect personal data or transfer it to our own servers, your data is safe on your own device. We trust Google Play's infrastructure for app distribution and payment processing.",
+                h5: "5. Changes to This Privacy Policy",
+                p5: "We may update our privacy policy from time to time as the app evolves. We recommend visiting this page regularly to stay informed about any changes.",
+                h6: "6. Contact Us",
+                contact: "If you have any questions or concerns about this privacy policy, please feel free to contact us via email:<br><strong>sovelluksenkehittaja@gmail.com</strong>"
+            },
+            sv: {
+                title: "Integritetspolicy",
+                updated: "Senast uppdaterad: 5.12.2025",
+                intro: "Denna integritetspolicy gäller applikationen \"Kryptot\" (Crypto Tracker).",
+                h1: "1. Datainsamling och integritet",
+                p1: "<strong>Vi samlar inte in personuppgifter.</strong> Appen är designad att fungera helt utan användaridentifiering. Vi samlar inte in, lagrar eller delar någon av dina personliga uppgifter (såsom namn, e-postadress, telefonnummer eller platsdata). Att använda appen kräver inte registrering eller att skapa ett användarkonto.",
+                h2: "2. Appens tekniska drift",
+                p2: "Appen fungerar självständigt på användarens enhet med följande principer:",
+                li1: "<strong>Realtidsdata:</strong> Appen använder en internetanslutning för att hämta uppdaterade kryptovalutakurser och diagram från en extern databas (Firebase) och offentliga API:er. Detta är rent datahämtning, och inga användardata skickas ut i processen.",
+                li2: "<strong>Lokal lagring:</strong> Alla användarinställningar – såsom favoritlistor, inställda prisvarningar och appinställningar – lagras endast lokalt i användarens telefonminne. Dessa data stannar endast på din enhet.",
+                li3: "<strong>Betalningshantering:</strong> Köp av Premium-versionen sker direkt via Google Play Store. Google hanterar betalningstransaktionen säkert. Appen får endast teknisk bekräftelse (\"ja/nej\") från Google om huruvida licensen är aktiv, så att Premium-funktioner kan låsas upp. Vi ser eller hanterar aldrig dina kreditkortsuppgifter.",
+                h3: "3. Appbehörigheter",
+                p3: "Appen begär endast nödvändiga behörigheter för att fungera:",
+                li4: "<strong>INTERNET:</strong> Nödvändigt för att ladda prisdata.",
+                li5: "<strong>FOREGROUND_SERVICE & POST_NOTIFICATIONS:</strong> Krävs för prisvarningsmålsfunktionalitet. När du ställer in en varning övervakar appen priset i bakgrunden och skickar ett meddelande när tröskeln nås. Denna process sker lokalt på din enhet.",
+                h4: "4. Säkerhet",
+                p4: "Eftersom vi inte samlar in personuppgifter eller överför dem till våra egna servrar är dina data säkra på din egen enhet. Vi litar på Google Plays infrastruktur för appdistribution och betalningshantering.",
+                h5: "5. Ändringar av denna integritetspolicy",
+                p5: "Vi kan uppdatera vår integritetspolicy då och då när appen utvecklas. Vi rekommenderar att du besöker denna sida regelbundet för att hålla dig informerad om eventuella ändringar.",
+                h6: "6. Kontakta oss",
+                contact: "Om du har några frågor eller funderingar om denna integritetspolicy, kontakta oss gärna via e-post:<br><strong>sovelluksenkehittaja@gmail.com</strong>"
+            },
+            de: {
+                title: "Datenschutzerklärung",
+                updated: "Zuletzt aktualisiert: 5.12.2025",
+                intro: "Diese Datenschutzerklärung gilt für die Anwendung \"Kryptot\" (Crypto Tracker).",
+                h1: "1. Datenerfassung und Datenschutz",
+                p1: "<strong>Wir erfassen keine personenbezogenen Daten.</strong> Die App ist so konzipiert, dass sie vollständig ohne Benutzeridentifikation funktioniert. Wir erfassen, speichern oder teilen keine Ihrer persönlichen Daten (wie Name, E-Mail-Adresse, Telefonnummer oder Standortdaten). Die Nutzung der App erfordert keine Registrierung oder Erstellung eines Benutzerkontos.",
+                h2: "2. Technischer Betrieb der App",
+                p2: "Die App funktioniert unabhängig auf dem Gerät des Benutzers nach folgenden Prinzipien:",
+                li1: "<strong>Echtzeitdaten:</strong> Die App verwendet eine Internetverbindung, um aktuelle Kryptowährungskurse und Diagramme aus einer externen Datenbank (Firebase) und öffentlichen APIs abzurufen. Dies ist reine Datenabfrage, und es werden keine Benutzerdaten dabei versendet.",
+                li2: "<strong>Lokale Speicherung:</strong> Alle vom Benutzer vorgenommenen Einstellungen – wie Favoritenlisten, festgelegte Preisalarme und App-Einstellungen – werden nur lokal im Telefonspeicher des Benutzers gespeichert. Diese Daten bleiben nur auf Ihrem Gerät.",
+                li3: "<strong>Zahlungsabwicklung:</strong> Der Kauf der Premium-Version erfolgt direkt über den Google Play Store. Google wickelt die Zahlungstransaktion sicher ab. Die App erhält von Google nur eine technische Bestätigung (\"ja/nein\"), ob die Lizenz aktiv ist, damit Premium-Funktionen freigeschaltet werden können. Wir sehen oder verarbeiten niemals Ihre Kreditkarteninformationen.",
+                h3: "3. App-Berechtigungen",
+                p3: "Die App fordert nur die notwendigen Berechtigungen zum Funktionieren an:",
+                li4: "<strong>INTERNET:</strong> Erforderlich zum Laden von Preisdaten.",
+                li5: "<strong>FOREGROUND_SERVICE & POST_NOTIFICATIONS:</strong> Erforderlich für die Preisalarm-Funktionalität. Wenn Sie einen Alarm einstellen, überwacht die App den Preis im Hintergrund und sendet eine Benachrichtigung, wenn der Schwellenwert erreicht wird. Dieser Prozess erfolgt lokal auf Ihrem Gerät.",
+                h4: "4. Sicherheit",
+                p4: "Da wir keine personenbezogenen Daten erfassen oder auf unsere eigenen Server übertragen, sind Ihre Daten auf Ihrem eigenen Gerät sicher. Wir vertrauen auf die Infrastruktur von Google Play für die App-Verteilung und Zahlungsabwicklung.",
+                h5: "5. Änderungen dieser Datenschutzerklärung",
+                p5: "Wir können unsere Datenschutzerklärung von Zeit zu Zeit aktualisieren, wenn sich die App weiterentwickelt. Wir empfehlen, diese Seite regelmäßig zu besuchen, um über etwaige Änderungen informiert zu bleiben.",
+                h6: "6. Kontaktieren Sie uns",
+                contact: "Wenn Sie Fragen oder Bedenken zu dieser Datenschutzerklärung haben, kontaktieren Sie uns bitte per E-Mail:<br><strong>sovelluksenkehittaja@gmail.com</strong>"
+            },
+            es: {
+                title: "Política de Privacidad",
+                updated: "Última actualización: 5.12.2025",
+                intro: "Esta política de privacidad se aplica a la aplicación \"Kryptot\" (Crypto Tracker).",
+                h1: "1. Recopilación de datos y privacidad",
+                p1: "<strong>No recopilamos datos personales.</strong> La aplicación está diseñada para funcionar completamente sin identificación del usuario. No recopilamos, almacenamos ni compartimos ninguna de su información personal (como nombre, dirección de correo electrónico, número de teléfono o datos de ubicación). El uso de la aplicación no requiere registro ni crear una cuenta de usuario.",
+                h2: "2. Funcionamiento técnico de la aplicación",
+                p2: "La aplicación funciona de forma independiente en el dispositivo del usuario siguiendo estos principios:",
+                li1: "<strong>Datos en tiempo real:</strong> La aplicación utiliza una conexión a Internet para obtener datos actualizados de precios de criptomonedas y gráficos desde una base de datos externa (Firebase) y APIs públicas. Esto es puramente recuperación de datos, y no se envían datos de usuario en el proceso.",
+                li2: "<strong>Almacenamiento local:</strong> Todas las configuraciones realizadas por el usuario – como listas de favoritos, alertas de precios establecidas y configuraciones de la aplicación – se almacenan solo localmente en la memoria del teléfono del usuario. Estos datos permanecen solo en su dispositivo.",
+                li3: "<strong>Procesamiento de pagos:</strong> La compra de la versión Premium se realiza directamente a través de Google Play Store. Google maneja la transacción de pago de forma segura. La aplicación solo recibe confirmación técnica (\"sí/no\") de Google sobre si la licencia está activa, para que las funciones Premium puedan desbloquearse. Nunca vemos ni manejamos su información de tarjeta de crédito.",
+                h3: "3. Permisos de la aplicación",
+                p3: "La aplicación solicita solo los permisos necesarios para funcionar:",
+                li4: "<strong>INTERNET:</strong> Esencial para cargar datos de precios.",
+                li5: "<strong>FOREGROUND_SERVICE & POST_NOTIFICATIONS:</strong> Requerido para la funcionalidad de alertas de precios. Cuando establece una alerta, la aplicación monitorea el precio en segundo plano y envía una notificación cuando se alcanza el umbral. Este proceso ocurre localmente en su dispositivo.",
+                h4: "4. Seguridad",
+                p4: "Como no recopilamos datos personales ni los transferimos a nuestros propios servidores, sus datos están seguros en su propio dispositivo. Confiamos en la infraestructura de Google Play para la distribución de aplicaciones y el procesamiento de pagos.",
+                h5: "5. Cambios a esta política de privacidad",
+                p5: "Podemos actualizar nuestra política de privacidad de vez en cuando a medida que evoluciona la aplicación. Recomendamos visitar esta página regularmente para mantenerse informado sobre cualquier cambio.",
+                h6: "6. Contáctenos",
+                contact: "Si tiene alguna pregunta o inquietud sobre esta política de privacidad, no dude en contactarnos por correo electrónico:<br><strong>sovelluksenkehittaja@gmail.com</strong>"
+            },
+            fr: {
+                title: "Politique de Confidentialité",
+                updated: "Dernière mise à jour : 5.12.2025",
+                intro: "Cette politique de confidentialité s'applique à l'application \"Kryptot\" (Crypto Tracker).",
+                h1: "1. Collecte de données et confidentialité",
+                p1: "<strong>Nous ne collectons pas de données personnelles.</strong> L'application est conçue pour fonctionner complètement sans identification de l'utilisateur. Nous ne collectons, ne stockons ni ne partageons aucune de vos informations personnelles (telles que nom, adresse e-mail, numéro de téléphone ou données de localisation). L'utilisation de l'application ne nécessite pas d'inscription ni de création de compte utilisateur.",
+                h2: "2. Fonctionnement technique de l'application",
+                p2: "L'application fonctionne indépendamment sur l'appareil de l'utilisateur selon les principes suivants :",
+                li1: "<strong>Données en temps réel :</strong> L'application utilise une connexion Internet pour récupérer les données de prix de crypto-monnaies à jour et les graphiques depuis une base de données externe (Firebase) et des API publiques. Il s'agit purement de récupération de données, et aucune donnée utilisateur n'est envoyée dans le processus.",
+                li2: "<strong>Stockage local :</strong> Tous les paramètres effectués par l'utilisateur – tels que les listes de favoris, les alertes de prix définies et les paramètres de l'application – sont stockés uniquement localement dans la mémoire du téléphone de l'utilisateur. Ces données restent uniquement sur votre appareil.",
+                li3: "<strong>Traitement des paiements :</strong> L'achat de la version Premium se fait directement via le Google Play Store. Google gère la transaction de paiement en toute sécurité. L'application reçoit uniquement une confirmation technique (\"oui/non\") de Google pour savoir si la licence est active, afin que les fonctionnalités Premium puissent être débloquées. Nous ne voyons ni ne traitons jamais vos informations de carte de crédit.",
+                h3: "3. Autorisations de l'application",
+                p3: "L'application demande uniquement les autorisations nécessaires pour fonctionner :",
+                li4: "<strong>INTERNET :</strong> Essentiel pour charger les données de prix.",
+                li5: "<strong>FOREGROUND_SERVICE & POST_NOTIFICATIONS :</strong> Requis pour la fonctionnalité d'alerte de prix. Lorsque vous définissez une alerte, l'application surveille le prix en arrière-plan et envoie une notification lorsque le seuil est atteint. Ce processus se produit localement sur votre appareil.",
+                h4: "4. Sécurité",
+                p4: "Étant donné que nous ne collectons pas de données personnelles ni ne les transférons vers nos propres serveurs, vos données sont en sécurité sur votre propre appareil. Nous faisons confiance à l'infrastructure de Google Play pour la distribution d'applications et le traitement des paiements.",
+                h5: "5. Modifications de cette politique de confidentialité",
+                p5: "Nous pouvons mettre à jour notre politique de confidentialité de temps en temps à mesure que l'application évolue. Nous vous recommandons de visiter cette page régulièrement pour rester informé de tout changement.",
+                h6: "6. Nous contacter",
+                contact: "Si vous avez des questions ou des préoccupations concernant cette politique de confidentialité, n'hésitez pas à nous contacter par e-mail :<br><strong>sovelluksenkehittaja@gmail.com</strong>"
+            }
+        };
+
+        function changeLanguage(lang) {
+            const t = translations[lang];
+            document.getElementById('title').innerHTML = t.title;
+            document.querySelector('.updated').innerHTML = '<strong>' + t.updated + '</strong>';
+            document.querySelectorAll('p')[1].innerHTML = t.intro;
+            
+            const headings = document.querySelectorAll('h2');
+            headings[0].textContent = t.h1;
+            headings[1].textContent = t.h2;
+            headings[2].textContent = t.h3;
+            headings[3].textContent = t.h4;
+            headings[4].textContent = t.h5;
+            headings[5].textContent = t.h6;
+            
+            const paragraphs = document.querySelectorAll('.container > p');
+            paragraphs[2].innerHTML = t.p1;
+            paragraphs[3].innerHTML = t.p2;
+            paragraphs[4].innerHTML = t.p3;
+            paragraphs[5].innerHTML = t.p4;
+            paragraphs[6].innerHTML = t.p5;
+            
+            const lists = document.querySelectorAll('ul');
+            lists[0].children[0].innerHTML = t.li1;
+            lists[0].children[1].innerHTML = t.li2;
+            lists[0].children[2].innerHTML = t.li3;
+            lists[1].children[0].innerHTML = t.li4;
+            lists[1].children[1].innerHTML = t.li5;
+            
+            document.getElementById('contact-text').innerHTML = t.contact;
+            
+            // Save language preference
+            localStorage.setItem('privacyLang', lang);
+            document.documentElement.lang = lang;
+        }
+
+        // Load saved language on page load
+        window.addEventListener('DOMContentLoaded', function() {
+            const savedLang = localStorage.getItem('privacyLang') || 'fi';
+            document.getElementById('languageSelect').value = savedLang;
+            if (savedLang !== 'fi') {
+                changeLanguage(savedLang);
+            }
+        });
+    </script>
 </body>
 </html>
