@@ -63,54 +63,41 @@
         
         <p>Tämä tietosuojakäytäntö koskee "Kryptot" (Crypto Tracker) -sovellusta.</p>
         
-        <h2>1. Kerättävät tiedot</h2>
+        <h2>1. Tietojen kerääminen ja yksityisyys</h2>
         
-        <p>Sovellus itsessään ei kerää tai tallenna käyttäjän henkilökohtaisia tunnistetietoja (kuten nimi, sähköpostiosoite tai puhelinnumero) omille palvelimilleen.</p>
+        <p><strong>Emme kerää henkilötietoja.</strong> Sovellus on suunniteltu toimimaan täysin ilman käyttäjän tunnistamista. Emme kerää, tallenna tai jaa mitään henkilökohtaisia tietojasi (kuten nimi, sähköpostiosoite, puhelinnumero tai sijaintitiedot). Sovelluksen käyttö ei vaadi rekisteröitymistä tai käyttäjätilin luomista.</p>
         
-        <p>Sovellus käyttää kolmannen osapuolen palveluita, jotka voivat kerätä tietoja käyttäjän tunnistamiseksi:</p>
+        <h2>2. Sovelluksen tekninen toiminta</h2>
         
-        <ul>
-            <li><strong>Google Play Services</strong>: Sovelluksen toiminnan ja päivitysten varmistamiseksi.</li>
-            <li><strong>Firebase Analytics & Crashlytics</strong>: Keräämme anonyymejä käyttötilastoja ja virheraportteja sovelluksen laadun parantamiseksi. Näitä tietoja ovat esimerkiksi laitteen malli, käyttöjärjestelmän versio ja sovelluksen kaatumiseen johtaneet tapahtumat.</li>
-            <li><strong>Google Play Billing</strong>: Jos ostat Premium-version, Google käsittelee maksutapahtuman. Sovellus saa tiedon vain siitä, onko osto suoritettu onnistuneesti, mutta ei näe luottokorttitietojasi.</li>
-        </ul>
-        
-        <h2>2. Tietojen käyttötarkoitus</h2>
-        
-        <p>Kerättyjä tietoja käytetään seuraaviin tarkoituksiin:</p>
+        <p>Sovellus toimii itsenäisesti käyttäjän laitteella hyödyntäen seuraavia periaatteita:</p>
         
         <ul>
-            <li>Sovelluksen perustoimintojen tarjoaminen (esim. kryptovaluuttojen hintojen haku).</li>
-            <li>Sovelluksen vakauden ja suorituskyvyn seuranta (virheraportit).</li>
-            <li>Maksullisten ominaisuuksien hallinta (Premium-tila).</li>
+            <li><strong>Reaaliaikaiset tiedot:</strong> Sovellus käyttää internet-yhteyttä hakeakseen ajantasaiset kryptovaluuttojen kurssitiedot ja kaaviot ulkoisesta tietokannasta (Firebase) sekä julkisista rajapinnoista. Tämä on puhtaasti tiedon hakemista, eikä prosessissa lähetetä käyttäjätietoja ulospäin.</li>
+            <li><strong>Paikallinen tallennus:</strong> Kaikki käyttäjän tekemät asetukset – kuten suosikkilistat, asetetut hintahälytykset ja sovelluksen asetukset – tallennetaan ainoastaan paikallisesti käyttäjän puhelimen muistiin. Nämä tiedot pysyvät vain sinun laitteellasi.</li>
+            <li><strong>Maksuliikenne:</strong> Sovelluksen Premium-version osto tapahtuu suoraan Google Play -kaupan kautta. Google käsittelee maksutapahtuman turvallisesti. Sovellus saa Googlelta ainoastaan teknisen vahvistuksen ("kyllä/ei") siitä, onko lisenssi voimassa, jotta Premium-ominaisuudet voidaan avata. Emme koskaan näe tai käsittele luottokorttitietojasi.</li>
         </ul>
         
         <h2>3. Sovelluksen luvat</h2>
         
-        <p>Sovellus pyytää seuraavia lupia toimiakseen:</p>
+        <p>Sovellus pyytää vain välttämättömät luvat toimiakseen:</p>
         
         <ul>
-            <li><strong>INTERNET</strong>: Kryptovaluuttojen hintatietojen hakemiseen verkosta.</li>
-            <li><strong>FOREGROUND_SERVICE</strong>: Hintahälytysten seuraamiseen taustalla, jotta saat ilmoituksen hinnanmuutoksista vaikka sovellus ei olisi auki.</li>
-            <li><strong>POST_NOTIFICATIONS</strong>: Ilmoitusten lähettämiseen hintahälytyksistä.</li>
+            <li><strong>INTERNET:</strong> Välttämätön kurssitietojen lataamiseksi.</li>
+            <li><strong>FOREGROUND_SERVICE & POST_NOTIFICATIONS:</strong> Tarvitaan hintahälytysten toimintaan. Kun asetat hälytyksen, sovellus seuraa hintaa taustalla ja lähettää ilmoituksen, kun raja ylittyy. Tämä prosessi tapahtuu paikallisesti laitteessasi.</li>
         </ul>
         
         <h2>4. Tietoturva</h2>
         
-        <p>Arvostamme luottamustasi. Pyrimme suojaamaan sovelluksen käsittelemät tiedot kaupallisesti hyväksyttävillä keinoilla. Muista kuitenkin, että mikään tiedonsiirtotapa internetissä tai sähköinen tallennustapa ei ole 100 % turvallinen.</p>
+        <p>Koska emme kerää henkilötietoja emmekä siirrä niitä omille palvelimillemme, tietosi ovat turvassa omalla laitteellasi. Luotamme Google Playn infrastruktuuriin sovelluksen jakelussa ja maksujen käsittelyssä.</p>
         
-        <h2>5. Linkit muihin sivustoihin</h2>
+        <h2>5. Muutokset tähän tietosuojakäytäntöön</h2>
         
-        <p>Sovellus voi sisältää linkkejä muille sivustoille. Jos napsautat kolmannen osapuolen linkkiä, sinut ohjataan kyseiselle sivustolle. Huomaa, että emme hallinnoi näitä ulkoisia sivustoja, joten suosittelemme tutustumaan niiden omiin tietosuojakäytäntöihin.</p>
+        <p>Saatamme päivittää tietosuojakäytäntöämme ajoittain sovelluksen kehittyessä. Suosittelemme käymään tällä sivulla säännöllisesti pysyäksesi ajan tasalla mahdollisista muutoksista.</p>
         
-        <h2>6. Muutokset tähän tietosuojakäytäntöön</h2>
-        
-        <p>Voimme päivittää tietosuojakäytäntöämme ajoittain. Suosittelemme tarkistamaan tämän sivun säännöllisesti muutosten varalta.</p>
-        
-        <h2>7. Ota yhteyttä</h2>
+        <h2>6. Ota yhteyttä</h2>
         
         <div class="contact">
-            <p>Jos sinulla on kysyttävää tästä tietosuojakäytännöstä, voit ottaa meihin yhteyttä sähköpostitse:<br>
+            <p>Jos sinulla on kysymyksiä tai huolenaiheita tästä tietosuojakäytännöstä, otathan rohkeasti yhteyttä sähköpostitse:<br>
             <strong>sovelluksenkehittaja@gmail.com</strong></p>
         </div>
     </div>
